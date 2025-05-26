@@ -1,7 +1,15 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-st.image("c:/Users/curti/Desktop/python-practice/BadRiverDA.png", width=200)
+import os
+
+logo_path = os.path.join(os.path.dirname(__file__), "logo.png")
+
+
+# Show the logo image (supports PNG, JPG, etc.)
+st.image(logo_path, width=200)
+# ...existing code...
+
 st.title("NPS Score Calculator")
 
 uploaded_file = st.file_uploader("Upload a CSV file with 'month' and 'score' columns. Use 1 for January, 2 for February, etc.", type="csv")
