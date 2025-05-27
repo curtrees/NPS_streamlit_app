@@ -108,6 +108,28 @@ if uploaded_file is not None:
         )
         st.plotly_chart(fig_line)
 
+               # Rolling 3-month average NPS line chart (only the rolling average)
+        if len(nps_df) >= 3:
+            nps_df_sorted = nps_df.sort_values("Month")
+            nps_df_sorted["Rolling 3-Month Avg"] = nps_df_sorted["NPS"].rolling(window=3, min_periods=1).mean()
+
+            fig_rolling = go.Figure()
+            fig_rolling.add_trace(go.Scatter(
+                x=nps_df_sorted["Month"],
+                y=nps_df_sorted["Rolling 3-Month Avg"],
+                mode="lines+markers",
+                name="Rolling 3-Month Avg",
+                line=dict(dash='dash', color='purple')
+            ))
+            fig_rolling.update_layout(
+                title="Rolling 3-Month Average NPS",
+                xaxis_title="Month",
+                yaxis_title="NPS Score"
+            )
+            st.plotly_chart(fig_rolling)
+        else:
+            st.info("Need at least 3 months of data for rolling average chart.")
+
         # Donut chart for all data combined
         total_promoters = nps_df["Promoters"].sum()
         total_passives = nps_df["Passives"].sum()
