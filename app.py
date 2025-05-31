@@ -129,7 +129,6 @@ if uploaded_file is not None:
             st.plotly_chart(fig_rolling)
         else:
             st.info("Need at least 3 months of data for rolling average chart.")
-
         # Donut chart for all data combined
         total_promoters = nps_df["Promoters"].sum()
         total_passives = nps_df["Passives"].sum()
